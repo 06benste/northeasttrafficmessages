@@ -33,6 +33,14 @@ class VmsDisplayImage(NortheastTrafficMessagesEntity, ImageEntity):
         self.access_tokens: list[str] = []
 
     @property
+    def entity_picture(self) -> str | None:
+        """Return entity picture URL, or None if no access tokens available."""
+        if not self.access_tokens:
+            return None
+        # Use parent's entity_picture implementation if tokens exist
+        return super().entity_picture
+
+    @property
     def state_attributes(self) -> dict[str, Any] | None:
         """Return state attributes, or None if no access tokens available."""
         if not self.access_tokens:

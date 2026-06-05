@@ -27,6 +27,8 @@ class VmsDisplayImage(NortheastTrafficMessagesEntity, ImageEntity):
     def __init__(self, coordinator: NortheastTrafficMessagesCoordinator) -> None:
         super().__init__(coordinator, "display")
         self._attr_content_type = "image/gif"
+        # Initialize access_tokens list required by ImageEntity
+        self.access_tokens: list[str] = []
 
     async def async_image(self) -> bytes | None:
         """Return the latest rendered sign GIF."""

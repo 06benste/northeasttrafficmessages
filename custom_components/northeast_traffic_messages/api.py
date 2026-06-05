@@ -316,8 +316,10 @@ class UTMCApiClient:
                 headers=headers,
                 timeout=aiohttp.ClientTimeout(total=30),
             ) as response:
-                if response.status in (401, 403):
-                    raise InvalidAuth if response.status == 401 else CannotConnect(
+                if response.status == 401:
+                    raise InvalidAuth("Invalid credentials")
+                if response.status == 403:
+                    raise CannotConnect(
                         f"HTTP {response.status}: access denied (check credentials)"
                     )
                 response.raise_for_status()

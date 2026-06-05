@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from datetime import timedelta
+from functools import partial
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -78,9 +79,8 @@ class NortheastTrafficMessagesCoordinator(DataUpdateCoordinator[VmsCoordinatorDa
                 sign_name=vms.static.short_description,
             )
             gif_bytes = await self.hass.async_add_executor_job(
-                render_vms_gif_bytes,
+                partial(render_vms_gif_bytes, options=options),
                 lines,
-                options,
             )
             await self._async_update_device(vms.static)
             return VmsCoordinatorData(

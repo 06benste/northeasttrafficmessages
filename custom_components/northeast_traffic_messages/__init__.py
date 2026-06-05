@@ -8,6 +8,8 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
+from .coordinator import async_create_coordinator
+
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS: list[Platform] = [
@@ -20,6 +22,10 @@ PLATFORMS: list[Platform] = [
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Northeast Traffic Messages from a config entry."""
     hass.data.setdefault("northeast_traffic_messages", {})
+    
+    # Create coordinator and store in entry.runtime_data
+    coordinator = await async_create_coordinator(hass, entry)
+    entry.runtime_data = coordinator
     
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     entry.async_on_unload(entry.add_update_listener(update_listener))

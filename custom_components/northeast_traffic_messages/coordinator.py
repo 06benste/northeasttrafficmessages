@@ -80,7 +80,7 @@ class NortheastTrafficMessagesCoordinator(DataUpdateCoordinator[VmsCoordinatorDa
             gif_bytes = await self.hass.async_add_executor_job(
                 render_vms_gif_bytes,
                 lines,
-                options=options,
+                options,
             )
             await self._async_update_device(vms.static)
             return VmsCoordinatorData(

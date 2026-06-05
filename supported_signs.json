@@ -1,0 +1,572 @@
+[
+  {
+    "friendly_id": "A1M_7338A",
+    "utmc_id": "53A493822BD36CBCE053812011AC18B8",
+    "name": "A1M/7338A"
+  },
+  {
+    "friendly_id": "A1M_7346A",
+    "utmc_id": "53A493822BD46CBCE053812011AC18B8",
+    "name": "A1M/7346A"
+  },
+  {
+    "friendly_id": "A1M_7351B",
+    "utmc_id": "53A4A79660176CBAE053812011AC5AF4",
+    "name": "A1M/7351B"
+  },
+  {
+    "friendly_id": "A1M_7361A",
+    "utmc_id": "53A4A79660186CBAE053812011AC5AF4",
+    "name": "A1M/7361A"
+  },
+  {
+    "friendly_id": "A1M_7365B",
+    "utmc_id": "53A493822BD76CBCE053812011AC18B8",
+    "name": "A1M/7365B"
+  },
+  {
+    "friendly_id": "A1M_7372A",
+    "utmc_id": "53A4A79660206CBAE053812011AC5AF4",
+    "name": "A1M/7372A"
+  },
+  {
+    "friendly_id": "A1M_7377A",
+    "utmc_id": "53A4A796601E6CBAE053812011AC5AF4",
+    "name": "A1M/7377A"
+  },
+  {
+    "friendly_id": "A1M_7377B",
+    "utmc_id": "53A4A796601F6CBAE053812011AC5AF4",
+    "name": "A1M/7377B"
+  },
+  {
+    "friendly_id": "A1M_7383B",
+    "utmc_id": "53A4A796601D6CBAE053812011AC5AF4",
+    "name": "A1M/7383B"
+  },
+  {
+    "friendly_id": "A1M_7388A",
+    "utmc_id": "53A4A796601C6CBAE053812011AC5AF4",
+    "name": "A1M/7388A"
+  },
+  {
+    "friendly_id": "CPGS VMS1",
+    "utmc_id": "CPGS VMS1",
+    "name": "Durham - A691 Framwellgate Peth"
+  },
+  {
+    "friendly_id": "CPGS VMS2",
+    "utmc_id": "CPGS VMS2",
+    "name": "Durham - A690 Castle Chare"
+  },
+  {
+    "friendly_id": "CPGS VMS3",
+    "utmc_id": "CPGS VMS3",
+    "name": "Durham - C98 New Elvet"
+  },
+  {
+    "friendly_id": "CPGS VMS4",
+    "utmc_id": "CPGS VMS4",
+    "name": "Durham - A690 Leazes Road"
+  },
+  {
+    "friendly_id": "HE_A194M_9562A",
+    "utmc_id": "D25095020A9E7952E0433CC411ACA994",
+    "name": "Highways England - A194M/9562A"
+  },
+  {
+    "friendly_id": "HE_A19_1450A",
+    "utmc_id": "CFB613DE7C893254E0433CC411ACFD01",
+    "name": "Highways England - A19/1450A"
+  },
+  {
+    "friendly_id": "HE_A19_1458A",
+    "utmc_id": "CFB613DE7C8A3254E0433CC411ACFD01",
+    "name": "Highways England - A19/1458A"
+  },
+  {
+    "friendly_id": "HE_A19_1498B",
+    "utmc_id": "DD5190FA13802FA9E0433CC411AC9094",
+    "name": "Highways England - A19/1498B"
+  },
+  {
+    "friendly_id": "HE_A1_9570B",
+    "utmc_id": "0D3EDF9EB5617BB9E0533CC711AC4D20",
+    "name": "Highways England - A1/9570B"
+  },
+  {
+    "friendly_id": "HE_A1_9632A",
+    "utmc_id": "CFB613DE833E3254E0433CC411ACFD01",
+    "name": "Highways England - A1/9632A"
+  },
+  {
+    "friendly_id": "HE_A1M_9072A",
+    "utmc_id": "D25095020B137952E0433CC411ACA994",
+    "name": "Highways England - A1M/9072A"
+  },
+  {
+    "friendly_id": "HE_A1M_9072B",
+    "utmc_id": "D25095020B537952E0433CC411ACA994",
+    "name": "Highways England - A1M/9072B"
+  },
+  {
+    "friendly_id": "HE_A1M_9105A",
+    "utmc_id": "D25095020B127952E0433CC411ACA994",
+    "name": "Highways England - A1M/9105A"
+  },
+  {
+    "friendly_id": "HE_A1M_9105B",
+    "utmc_id": "D25095020B527952E0433CC411ACA994",
+    "name": "Highways England - A1M/9105B"
+  },
+  {
+    "friendly_id": "HE_A1M_9125A",
+    "utmc_id": "D2509501F39B7952E0433CC411ACA994",
+    "name": "Highways England - A1M/9125A"
+  },
+  {
+    "friendly_id": "HE_A1M_9125B",
+    "utmc_id": "D25095020B157952E0433CC411ACA994",
+    "name": "Highways England - A1M/9125B"
+  },
+  {
+    "friendly_id": "HE_A1M_9142A",
+    "utmc_id": "D2509501F39A7952E0433CC411ACA994",
+    "name": "Highways England - A1M/9142A"
+  },
+  {
+    "friendly_id": "HE_A1M_9142B",
+    "utmc_id": "D25095020B147952E0433CC411ACA994",
+    "name": "Highways England - A1M/9142B"
+  },
+  {
+    "friendly_id": "HE_A1M_9219A",
+    "utmc_id": "CFB613DE7C773254E0433CC411ACFD01",
+    "name": "Highways England - A1M/9219A"
+  },
+  {
+    "friendly_id": "HE_A1M_9228B",
+    "utmc_id": "D25095020B567952E0433CC411ACA994",
+    "name": "Highways England - A1M/9228B"
+  },
+  {
+    "friendly_id": "HE_A1M_9394B",
+    "utmc_id": "D25095020C697952E0433CC411ACA994",
+    "name": "Highways England - A1M/9394B"
+  },
+  {
+    "friendly_id": "HE_A1M_9414A",
+    "utmc_id": "D25095020BEA7952E0433CC411ACA994",
+    "name": "Highways England - A1M/9414A"
+  },
+  {
+    "friendly_id": "HE_A1M_9414B",
+    "utmc_id": "D25095020CF77952E0433CC411ACA994",
+    "name": "Highways England - A1M/9414B"
+  },
+  {
+    "friendly_id": "HE_A1M_9461A",
+    "utmc_id": "D25095020BE87952E0433CC411ACA994",
+    "name": "Highways England - A1M/9461A"
+  },
+  {
+    "friendly_id": "HE_A1M_9528A3",
+    "utmc_id": "1C8E262E868C3A31E053692011AC5D6E",
+    "name": "Highways England - A1M/9528A3"
+  },
+  {
+    "friendly_id": "HE_A1M_9537A1",
+    "utmc_id": "1C8E262EB4AA0930E053802011ACD547",
+    "name": "Highways England - A1M/9537A1"
+  },
+  {
+    "friendly_id": "HE_A1M_9537A2",
+    "utmc_id": "1C8E262EB4AB0930E053802011ACD547",
+    "name": "Highways England - A1M/9537A2"
+  },
+  {
+    "friendly_id": "HE_A1M_9542B",
+    "utmc_id": "D25095020D4E7952E0433CC411ACA994",
+    "name": "Highways England - A1M/9542B"
+  },
+  {
+    "friendly_id": "HE_A66_0001B",
+    "utmc_id": "CFB613DE7EE13254E0433CC411ACFD01",
+    "name": "Highways England - A66/0001B"
+  },
+  {
+    "friendly_id": "HE_A66_0003B",
+    "utmc_id": "CFB613DE7EE23254E0433CC411ACFD01",
+    "name": "Highways England - A66/0003B"
+  },
+  {
+    "friendly_id": "HE_A67_0002B",
+    "utmc_id": "18257D15D95D3687E053692011AC9DB1",
+    "name": "Highways England - A67/0002B"
+  },
+  {
+    "friendly_id": "VMS1",
+    "utmc_id": "VMS1",
+    "name": "Durham - A167 - Northbound - Burn Hall"
+  },
+  {
+    "friendly_id": "VMS10",
+    "utmc_id": "VMS10",
+    "name": "Durham - A167 Plawsworth"
+  },
+  {
+    "friendly_id": "VMS11",
+    "utmc_id": "VMS11",
+    "name": "Durham - C12 Finchale Road"
+  },
+  {
+    "friendly_id": "VMS12",
+    "utmc_id": "VMS12",
+    "name": "Durham - Unc Sunderland Road"
+  },
+  {
+    "friendly_id": "VMS13",
+    "utmc_id": "VMS13",
+    "name": "Durham - B6532 New College"
+  },
+  {
+    "friendly_id": "VMS14",
+    "utmc_id": "VMS14",
+    "name": "Durham - A690 Meadowfield"
+  },
+  {
+    "friendly_id": "VMS2",
+    "utmc_id": "VMS2",
+    "name": "Durham - A690 Neville's Cross Bank - Northbound - Lowe's Barn Bank"
+  },
+  {
+    "friendly_id": "VMS3",
+    "utmc_id": "VMS3",
+    "name": "Durham - A691 - Eastbound - Trouts Lane"
+  },
+  {
+    "friendly_id": "VMS4",
+    "utmc_id": "VMS4",
+    "name": "Durham - A167 - Southbound - Framwellgate Moor"
+  },
+  {
+    "friendly_id": "VMS5",
+    "utmc_id": "VMS5",
+    "name": "Durham - A690 - Southbound - Belmont Industrial Estate"
+  },
+  {
+    "friendly_id": "VMS6",
+    "utmc_id": "VMS6",
+    "name": "Durham - A690 - Southbound - Moor House"
+  },
+  {
+    "friendly_id": "VMS7",
+    "utmc_id": "VMS7",
+    "name": "Durham - A181 - Westbound - Dragon Lane"
+  },
+  {
+    "friendly_id": "VMS8",
+    "utmc_id": "VMS8",
+    "name": "Durham - A181 - Westbound - Byers Garth"
+  },
+  {
+    "friendly_id": "VMS9",
+    "utmc_id": "VMS9",
+    "name": "Durham - A177 - Northbound - Bell Avenue"
+  },
+  {
+    "friendly_id": "VMS_GH_A167_NB_A1",
+    "utmc_id": "VMS_GH_A167_NB_A1",
+    "name": "A167 (NB) / A1 J66"
+  },
+  {
+    "friendly_id": "VMS_GH_A167_NB_CBP",
+    "utmc_id": "VMS_GH_A167_NB_CBP",
+    "name": "A167 (NB) / Camborne Pl"
+  },
+  {
+    "friendly_id": "VMS_GH_A167_SB_EGAT",
+    "utmc_id": "VMS_GH_A167_SB_EGAT",
+    "name": "A167 (SB) / East Gate"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_EB_A189",
+    "utmc_id": "VMS_GH_A184_EB_A189",
+    "name": "A184 (EB) / A189 Redheugh Brg"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_EB_AKR",
+    "utmc_id": "VMS_GH_A184_EB_AKR",
+    "name": "A184 (EB) / Askew Rd"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_EB_ARW",
+    "utmc_id": "VMS_GH_A184_EB_ARW",
+    "name": "A184 (EB) / Askew Rd West"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_EB_DWR",
+    "utmc_id": "VMS_GH_A184_EB_DWR",
+    "name": "A184 (EB) / A1114 Derwentwtr Rd"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_WB_A185",
+    "utmc_id": "VMS_GH_A184_WB_A185",
+    "name": "A184 (WB) / A185 / B1426 Heworth"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_WB_ABR",
+    "utmc_id": "VMS_GH_A184_WB_ABR",
+    "name": "A184 (WB) / Albany Rd"
+  },
+  {
+    "friendly_id": "VMS_GH_A184_WB_OFR",
+    "utmc_id": "VMS_GH_A184_WB_OFR",
+    "name": "A184 (WB) / Old Fold Rd"
+  },
+  {
+    "friendly_id": "VMS_GH_A185_WB_PLG",
+    "utmc_id": "VMS_GH_A185_WB_PLG",
+    "name": "A185 (WB) / Plantation Gr"
+  },
+  {
+    "friendly_id": "VMS_GH_A694_EB_A1114",
+    "utmc_id": "VMS_GH_A694_EB_A1114",
+    "name": "A694 (EB) / A1114 Riverside Way"
+  },
+  {
+    "friendly_id": "VMS_GH_A695_EB_B6317",
+    "utmc_id": "VMS_GH_A695_EB_B6317",
+    "name": "A695 (EB) / B6317 Bridge St"
+  },
+  {
+    "friendly_id": "VMS_GH_ABR_NB_QFR",
+    "utmc_id": "VMS_GH_ABR_NB_QFR",
+    "name": "Albany Rd (NB) / Quarryfield Rd"
+  },
+  {
+    "friendly_id": "VMS_GH_B1426_EB_A184",
+    "utmc_id": "VMS_GH_B1426_EB_A184",
+    "name": "B1426 (EB) / A184"
+  },
+  {
+    "friendly_id": "VMS_GH_B1426_WB_FXS",
+    "utmc_id": "VMS_GH_B1426_WB_FXS",
+    "name": "B1426 (WB) / Fox St"
+  },
+  {
+    "friendly_id": "VMS_GH_CHS_EB_CNS",
+    "utmc_id": "VMS_GH_CHS_EB_CNS",
+    "name": "Church St (EB) / Cannon St"
+  },
+  {
+    "friendly_id": "VMS_GH_GQUAYS_X_QYD",
+    "utmc_id": "VMS_GH_GQUAYS_X_QYD",
+    "name": "GH Quays MSCP (Exit) / Quays Bvd"
+  },
+  {
+    "friendly_id": "VMS_MC_SMW_EB_RED2",
+    "utmc_id": "VMS_MC_SMW_EB_RED2",
+    "name": "Metrocentre / Red CP Entry"
+  },
+  {
+    "friendly_id": "VMS_NB_A189_SB_A19",
+    "utmc_id": "VMS_NB_A189_SB_A19",
+    "name": "A189 (SB) / A19 Moor Farm"
+  },
+  {
+    "friendly_id": "VMS_NC_A1058_WB_B1307",
+    "utmc_id": "VMS_NC_A1058_WB_B1307",
+    "name": "A1058 (WB) / B1307 Sandyford Rd"
+  },
+  {
+    "friendly_id": "VMS_NC_A167_SB_A191",
+    "utmc_id": "VMS_NC_A167_SB_A191",
+    "name": "A167 (SB) / A191 Springfield Rd"
+  },
+  {
+    "friendly_id": "VMS_NC_A189_SB_A167",
+    "utmc_id": "VMS_NC_A189_SB_A167",
+    "name": "A189 (SB) / A167"
+  },
+  {
+    "friendly_id": "VMS_NC_A189_SB_CHS",
+    "utmc_id": "VMS_NC_A189_SB_CHS",
+    "name": "A189 (SB) / Churchill St"
+  },
+  {
+    "friendly_id": "VMS_NC_A189_SB_HOD",
+    "utmc_id": "VMS_NC_A189_SB_HOD",
+    "name": "A189 (SB) / Holland Dr"
+  },
+  {
+    "friendly_id": "VMS_NC_A189_SB_JDR",
+    "utmc_id": "VMS_NC_A189_SB_JDR",
+    "name": "A189 (SB) / Jesmond Dene Rd"
+  },
+  {
+    "friendly_id": "VMS_NC_A191_WB_TCL",
+    "utmc_id": "VMS_NC_A191_WB_TCL",
+    "name": "A191 (WB) / The Cloisters"
+  },
+  {
+    "friendly_id": "VMS_NC_A695_EB_A189",
+    "utmc_id": "VMS_NC_A695_EB_A189",
+    "name": "A695 (EB) / A189 St. James' Blvd"
+  },
+  {
+    "friendly_id": "VMS_NC_A695_SB_SCR",
+    "utmc_id": "VMS_NC_A695_SB_SCR",
+    "name": "A695 (SB) / Scotswood Rd"
+  },
+  {
+    "friendly_id": "VMS_NC_A695_WB_B1305",
+    "utmc_id": "VMS_NC_A695_WB_B1305",
+    "name": "A695 (WB) / B1305 Whitehouse Rd"
+  },
+  {
+    "friendly_id": "VMS_NC_B1318_SB_A189",
+    "utmc_id": "VMS_NC_B1318_SB_A189",
+    "name": "B1318 (SB) / A189 Grandstand Rd"
+  },
+  {
+    "friendly_id": "VMS_NC_B1600_WB_A695",
+    "utmc_id": "VMS_NC_B1600_WB_A695",
+    "name": "B1600 (WB) / A695 Railway St"
+  },
+  {
+    "friendly_id": "VMS_NT_A1056_WB_B1318",
+    "utmc_id": "VMS_NT_A1056_WB_B1318",
+    "name": "A1056 (WB) / B1318 Grt North Rd"
+  },
+  {
+    "friendly_id": "VMS_NT_A1056_WB_B1505",
+    "utmc_id": "VMS_NT_A1056_WB_B1505",
+    "name": "A1056 (WB) / B1505 Station Rd"
+  },
+  {
+    "friendly_id": "VMS_NT_A1058_WB_A1108",
+    "utmc_id": "VMS_NT_A1058_WB_A1108",
+    "name": "A1058 (WB) / A1018 Billy Mill Av"
+  },
+  {
+    "friendly_id": "VMS_NT_A1058_WB_NHR",
+    "utmc_id": "VMS_NT_A1058_WB_NHR",
+    "name": "A1058 (WB) / Norham Rd"
+  },
+  {
+    "friendly_id": "VMS_NT_A188_SB_GOA",
+    "utmc_id": "VMS_NT_A188_SB_GOA",
+    "name": "A188 (SB) / Goathland Ave"
+  },
+  {
+    "friendly_id": "VMS_NT_A189_SB_WHF",
+    "utmc_id": "VMS_NT_A189_SB_WHF",
+    "name": "A189 (SB) / White House Dr"
+  },
+  {
+    "friendly_id": "VMS_NT_A191_WB_B1505",
+    "utmc_id": "VMS_NT_A191_WB_B1505",
+    "name": "A191 (WB) / B1505 Grt Lime Rd"
+  },
+  {
+    "friendly_id": "VMS_SL_A1018_SB_B1291",
+    "utmc_id": "VMS_SL_A1018_SB_B1291",
+    "name": "A1018 (SB) / B1291 Charlton Rd"
+  },
+  {
+    "friendly_id": "VMS_SL_A1231_EB_A182",
+    "utmc_id": "VMS_SL_A1231_EB_A182",
+    "name": "A1231 (EB) / A182 Washington Hwy"
+  },
+  {
+    "friendly_id": "VMS_SL_A1231_EB_A19",
+    "utmc_id": "VMS_SL_A1231_EB_A19",
+    "name": "A1231 (EB) / A19"
+  },
+  {
+    "friendly_id": "VMS_SL_A1231_EB_FBL",
+    "utmc_id": "VMS_SL_A1231_EB_FBL",
+    "name": "A1231 (EB) / Ferryboat Ln"
+  },
+  {
+    "friendly_id": "VMS_SL_A1231_EB_PNR",
+    "utmc_id": "VMS_SL_A1231_EB_PNR",
+    "name": "A1231 (EB)/B1405 Pallion New Rd"
+  },
+  {
+    "friendly_id": "VMS_SL_A1231_WB_BCS",
+    "utmc_id": "VMS_SL_A1231_WB_BCS",
+    "name": "A1231 (WB) / Beach St"
+  },
+  {
+    "friendly_id": "VMS_SL_A1231_WB_FBL",
+    "utmc_id": "VMS_SL_A1231_WB_FBL",
+    "name": "A1231 (WB) / Ferryboat Ln"
+  },
+  {
+    "friendly_id": "VMS_SL_A183_EB_GWR",
+    "utmc_id": "VMS_SL_A183_EB_GWR",
+    "name": "A183 (EB) / Greenwood Rd"
+  },
+  {
+    "friendly_id": "VMS_SL_A690_NB_A19",
+    "utmc_id": "VMS_SL_A690_NB_A19",
+    "name": "A690 (NB) / A19"
+  },
+  {
+    "friendly_id": "VMS_SL_A690_NB_BMS",
+    "utmc_id": "VMS_SL_A690_NB_BMS",
+    "name": "A690 (NB) / Broadmeadows"
+  },
+  {
+    "friendly_id": "VMS_ST_A1018_SB_A1300",
+    "utmc_id": "VMS_ST_A1018_SB_A1300",
+    "name": "A1018 (SB) / A1300 John Reid Rd"
+  },
+  {
+    "friendly_id": "VMS_ST_A184_EB_B1298",
+    "utmc_id": "VMS_ST_A184_EB_B1298",
+    "name": "A184 (EB) / B1298 Abingdon Way"
+  },
+  {
+    "friendly_id": "VMS_ST_A184_WB_SNT",
+    "utmc_id": "VMS_ST_A184_WB_SNT",
+    "name": "A184 (WB) / St. Nicholas Tce"
+  },
+  {
+    "friendly_id": "VMS_ST_A185_EB_B1516",
+    "utmc_id": "VMS_ST_A185_EB_B1516",
+    "name": "A185 (EB) / B1516 Park Rd"
+  },
+  {
+    "friendly_id": "VMS_ST_A194_EB_A19",
+    "utmc_id": "VMS_ST_A194_EB_A19",
+    "name": "A194 (EB) / A19 Lindisfarne"
+  },
+  {
+    "friendly_id": "VMS_ST_A194_WB_A185",
+    "utmc_id": "VMS_ST_A194_WB_A185",
+    "name": "A194 (WB) / A185 Jarrow Rd"
+  },
+  {
+    "friendly_id": "WIND VMS 1",
+    "utmc_id": "WIND VMS 1",
+    "name": "Durham - Bob Hardisty Drive"
+  },
+  {
+    "friendly_id": "WIND VMS 2",
+    "utmc_id": "WIND VMS 2",
+    "name": "Durham - High Bondgate"
+  },
+  {
+    "friendly_id": "WIND VMS 3",
+    "utmc_id": "WIND VMS 3",
+    "name": "Durham - Etherley Lane"
+  },
+  {
+    "friendly_id": "WIND VMS 4",
+    "utmc_id": "WIND VMS 4",
+    "name": "Durham - A689 Addison Rd"
+  }
+]

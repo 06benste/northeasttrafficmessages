@@ -1,0 +1,64 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "UTMC login",
+        "menu_options": {
+          "use_saved": "Use saved credentials ({username})",
+          "enter_new": "Enter different credentials"
+        }
+      },
+      "enter_new": {
+        "title": "UTMC login"
+      },
+      "credentials": {
+        "title": "UTMC login",
+        "description": "{account_hint}",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      },
+      "sign": {
+        "title": "VMS sign code",
+        "description": "Enter the sign code for the sign you want to monitor (for example VMS_NC_A1058_WB_B1307 or HE_A1_9570B). See the sign list on GitHub ({sign_list_url}) — {sign_count} signs are currently supported.",
+        "data": {
+          "friendly_sign_id": "Sign code"
+        }
+      },
+      "reconfigure": {
+        "title": "Update UTMC credentials",
+        "description": "Update your netraveldata.co.uk login. This applies to all Northeast Traffic Messages devices.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid username or password",
+      "cannot_connect": "Could not connect to the UTMC API",
+      "unsupported_sign": "That sign code is not on the supported list. Check the GitHub sign list and try again.",
+      "sign_not_found": "The sign code was not found in the UTMC feed for your account",
+      "already_configured": "This sign is already configured"
+    },
+    "abort": {
+      "already_configured": "This sign is already configured",
+      "reconfigure_successful": "Credentials updated successfully"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "message_text": { "name": "Message text" },
+      "last_updated": { "name": "Last updated" },
+      "sign_setting_reason": { "name": "Reason" },
+      "location": { "name": "Location" }
+    },
+    "binary_sensor": {
+      "lanterns_flashing": { "name": "Lanterns flashing" }
+    },
+    "image": {
+      "display": { "name": "Display" }
+    }
+  }
+}

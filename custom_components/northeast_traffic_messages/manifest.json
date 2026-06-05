@@ -1,0 +1,12 @@
+{
+  "domain": "northeast_traffic_messages",
+  "name": "Northeast Traffic Messages",
+  "codeowners": ["@06benste"],
+  "config_flow": true,
+  "documentation": "https://github.com/06benste/northeasttrafficmessages/blob/main/Homeassistant/README.md",
+  "integration_type": "device",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/06benste/northeasttrafficmessages/issues",
+  "requirements": ["Pillow>=10.0.0"],
+  "version": "1.0.0"
+}

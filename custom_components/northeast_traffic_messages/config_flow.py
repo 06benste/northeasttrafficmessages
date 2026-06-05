@@ -210,7 +210,9 @@ class NortheastTrafficMessagesConfigFlow(config_entries.ConfigFlow, domain=DOMAI
                             },
                         )
 
-        sign_count = len(load_supported_signs())
+        sign_count = len(
+            await self.hass.async_add_executor_job(load_supported_signs)
+        )
         return self.async_show_form(
             step_id="sign",
             data_schema=vol.Schema(

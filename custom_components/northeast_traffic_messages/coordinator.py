@@ -5,7 +5,6 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from datetime import timedelta
-from functools import partial
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -32,19 +31,17 @@ from .const import (
     MANUFACTURER,
     SCAN_INTERVAL_SECONDS,
 )
-from .vms_display import VmsDisplayOptions, render_vms_gif_bytes
 
 _LOGGER = logging.getLogger(__name__)
 
 
 @dataclass
 class VmsCoordinatorData:
-    """Coordinator payload including rendered GIF bytes."""
+    """Coordinator payload for one VMS sign."""
 
     vms: VmsData
     display_lines: list[str]
     display_text: str
-    gif_bytes: bytes
 
 
 class NortheastTrafficMessagesCoordinator(DataUpdateCoordinator[VmsCoordinatorData]):
@@ -70,24 +67,11 @@ class NortheastTrafficMessagesCoordinator(DataUpdateCoordinator[VmsCoordinatorDa
         """Refresh dynamic data every poll; static metadata uses a shared 24-hour cache."""
         try:
             vms = await self.client.async_get_sign_data(self.sign_id)
-            lines = display_lines(vms.dynamic)
-            text = display_text(vms.dynamic)
-            lanterns_on = vms.dynamic is not None and vms.dynamic.lantern_state == 1
-            options = VmsDisplayOptions(
-                lanterns_on=lanterns_on,
-                sign_id=self.sign_id,
-                sign_name=vms.static.short_description,
-            )
-            gif_bytes = await self.hass.async_add_executor_job(
-                partial(render_vms_gif_bytes, options=options),
-                lines,
-            )
             await self._async_update_device(vms.static)
             return VmsCoordinatorData(
                 vms=vms,
-                display_lines=lines,
-                display_text=text,
-                gif_bytes=gif_bytes,
+                display_lines=display_lines(vms.dynamic),
+                display_text=display_text(vms.dynamic),
             )
         except InvalidAuth as err:
             raise ConfigEntryAuthFailed from err

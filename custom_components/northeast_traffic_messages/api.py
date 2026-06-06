@@ -22,6 +22,7 @@ from .const import (
     DOMAIN,
     STATIC_CACHE_TTL_SECONDS,
     USER_AGENT,
+    DYNAMIC_CACHE_TTL_SECONDS,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -287,6 +288,57 @@ def get_static_cache(hass: HomeAssistant) -> UTMCStaticCache:
     return domain_data["static_cache"]
 
 
+class UTMCDynamicCache:
+    """Shared dynamic feed cache keyed by UTMC credentials."""
+
+    def __init__(self) -> None:
+        self._indexes: dict[CredentialsKey, dict[str, VmsDynamic]] = {}
+        self._expires_at: dict[CredentialsKey, float] = {}
+        self._locks: dict[CredentialsKey, asyncio.Lock] = {}
+
+    def invalidate(self, username: str, password: str) -> None:
+        """Drop cached dynamic data for one credential pair."""
+        key = UTMCStaticCache._credentials_key(username, password)
+        self._indexes.pop(key, None)
+        self._expires_at.pop(key, None)
+
+    def invalidate_all(self) -> None:
+        """Drop all cached dynamic data."""
+        self._indexes.clear()
+        self._expires_at.clear()
+
+    async def async_get_index(
+        self,
+        username: str,
+        password: str,
+        fetcher: Callable[[], Awaitable[list[dict[str, Any]]]],
+    ) -> dict[str, VmsDynamic]:
+        """Return the dynamic index for credentials, fetching at most once per TTL."""
+        key = UTMCStaticCache._credentials_key(username, password)
+        now = time.monotonic()
+        if key in self._indexes and now < self._expires_at.get(key, 0.0):
+            return self._indexes[key]
+
+        lock = self._locks.setdefault(key, asyncio.Lock())
+        async with lock:
+            now = time.monotonic()
+            if key in self._indexes and now < self._expires_at.get(key, 0.0):
+                return self._indexes[key]
+
+            items = await fetcher()
+            self._indexes[key] = _build_dynamic_index(items)
+            self._expires_at[key] = now + DYNAMIC_CACHE_TTL_SECONDS
+            return self._indexes[key]
+
+
+def get_dynamic_cache(hass: HomeAssistant) -> UTMCDynamicCache:
+    """Return the shared dynamic feed cache for this Home Assistant instance."""
+    domain_data = hass.data.setdefault(DOMAIN, {})
+    if "dynamic_cache" not in domain_data:
+        domain_data["dynamic_cache"] = UTMCDynamicCache()
+    return domain_data["dynamic_cache"]
+
+
 class UTMCApiClient:
     """HTTP client for UTMC VMS feeds."""
 
@@ -296,12 +348,14 @@ class UTMCApiClient:
         username: str,
         password: str,
         static_cache: UTMCStaticCache,
+        dynamic_cache: UTMCDynamicCache,
     ) -> None:
         self._session = session
         self._auth = aiohttp.BasicAuth(username, password)
         self._username = username
         self._password = password
         self._static_cache = static_cache
+        self._dynamic_cache = dynamic_cache
 
     async def _request_json_once(self, url: str) -> list[dict[str, Any]]:
         """Perform a single HTTP request and parse the JSON array response."""
@@ -380,14 +434,22 @@ class UTMCApiClient:
             raise VmsNotFound(sign_id)
         return index[sign_id]
 
+    async def _ensure_dynamic_index(self) -> dict[str, VmsDynamic]:
+        """Return the shared dynamic sign index for these credentials."""
+        try:
+            return await self._dynamic_cache.async_get_index(
+                self._username,
+                self._password,
+                lambda: self._request_json(API_DYNAMIC_URL),
+            )
+        except UTMCError as err:
+            _LOGGER.debug("Dynamic feed unavailable: %s", err)
+            return {}
+
     async def async_get_dynamic_sign(self, sign_id: str) -> VmsDynamic | None:
         """Return dynamic display data for one sign, if available."""
-        try:
-            items = await self._request_json(API_DYNAMIC_URL)
-            return _build_dynamic_index(items).get(sign_id)
-        except UTMCError as err:
-            _LOGGER.debug("Dynamic feed unavailable for %s: %s", sign_id, err)
-            return None
+        index = await self._ensure_dynamic_index()
+        return index.get(sign_id)
 
     async def async_get_sign_data(self, sign_id: str) -> VmsData:
         """Return static and dynamic data for one sign."""
@@ -403,4 +465,5 @@ def create_client(hass: HomeAssistant, username: str, password: str) -> UTMCApiC
         username,
         password,
         get_static_cache(hass),
+        get_dynamic_cache(hass),
     )

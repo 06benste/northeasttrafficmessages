@@ -15,7 +15,7 @@ from homeassistant.helpers.selector import (
     TextSelectorType,
 )
 
-from .api import CannotConnect, InvalidAuth, VmsNotFound, create_client, get_static_cache
+from .api import CannotConnect, InvalidAuth, VmsNotFound, create_client, get_dynamic_cache, get_static_cache
 from .const import (
     CONF_FRIENDLY_SIGN_ID,
     CONF_PASSWORD,
@@ -253,6 +253,7 @@ class NortheastTrafficMessagesConfigFlow(config_entries.ConfigFlow, domain=DOMAI
                 errors["base"] = "cannot_connect"
             else:
                 get_static_cache(self.hass).invalidate_all()
+                get_dynamic_cache(self.hass).invalidate_all()
                 entry_ids = _async_update_all_entry_credentials(
                     self.hass,
                     user_input[CONF_USERNAME],

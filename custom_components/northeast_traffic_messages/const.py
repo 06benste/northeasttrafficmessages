@@ -19,9 +19,9 @@ API_RETRY_BASE_DELAY_SECONDS = 1
 MANUFACTURER = "NECA Tyne & Wear UTMC"
 USER_AGENT = "HomeAssistant/NortheastTrafficMessages/1.0.0"
 
-REPO_URL = "https://github.com/06benste/northeasttrafficmessages"
-DOCUMENTATION_URL = f"{REPO_URL}/blob/main/Homeassistant/README.md"
-SIGN_LIST_URL = f"{REPO_URL}/blob/main/Homeassistant/supported_signs.json"
+REPO_URL = "https://github.com/06benste/northeasttrafficmessages/"
+DOCUMENTATION_URL = REPO_URL
+SIGN_LIST_URL = f"{REPO_URL}blob/main/supported_signs.json"
 
 SIGN_SETTING_REASONS = (
     "No Override",

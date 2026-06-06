@@ -24,7 +24,7 @@ from .const import (
     DOMAIN,
     SIGN_LIST_URL,
 )
-from .signs import is_supported_friendly_sign_id, load_supported_signs, resolve_friendly_sign_id
+from .signs import load_supported_signs, resolve_friendly_sign_id
 
 _LOGGER = logging.getLogger(__name__)
 

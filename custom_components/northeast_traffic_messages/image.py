@@ -53,7 +53,7 @@ class VmsDisplayImage(NortheastTrafficMessagesEntity, ImageEntity):
 
     def _current_render_signature(
         self,
-    ) -> tuple[tuple[str, ...], int | None] | None:
+    ) -> tuple[tuple[str, ...], int | None, str | None, str | None] | None:
         """Return a stable key for the current sign display content."""
         if not self.coordinator.data:
             return None
@@ -61,6 +61,8 @@ class VmsDisplayImage(NortheastTrafficMessagesEntity, ImageEntity):
         return (
             tuple(self.coordinator.data.display_lines),
             dynamic.lantern_state if dynamic else None,
+            dynamic.pictogram_id if dynamic else None,
+            dynamic.category if dynamic else None,
         )
 
     async def _async_update_image(self) -> None:
@@ -79,6 +81,8 @@ class VmsDisplayImage(NortheastTrafficMessagesEntity, ImageEntity):
                 lanterns_on=dynamic is not None and dynamic.lantern_state == 1,
                 sign_id=self.coordinator.render_sign_id,
                 sign_name=data.vms.static.short_description,
+                pictogram_id=dynamic.pictogram_id if dynamic else None,
+                message_category=dynamic.category if dynamic else None,
             )
             try:
                 gif_bytes = await self.hass.async_add_executor_job(

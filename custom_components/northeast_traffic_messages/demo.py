@@ -102,6 +102,6 @@ def build_demo_wind_vms() -> tuple[VmsData, list[str], str]:
         lantern_state=1,
         category="Demo",
         message_name="Side winds",
-        pictogram_id=None,
+        pictogram_id="G7",
     )
     return VmsData(static=static, dynamic=dynamic), lines, text

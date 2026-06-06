@@ -14,6 +14,21 @@ from html import escape
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 
+try:
+    from .pictograms import (
+        WIND_PICTOGRAM_ID,
+        normalize_pictogram_id,
+        paste_pictogram,
+        paste_pictogram_led_cells,
+    )
+except ImportError:
+    from pictograms import (
+        WIND_PICTOGRAM_ID,
+        normalize_pictogram_id,
+        paste_pictogram,
+        paste_pictogram_led_cells,
+    )
+
 if TYPE_CHECKING:
     from PIL import Image
 
@@ -478,6 +493,14 @@ class VmsDisplayOptions:
     lanterns_on: bool = False
     sign_id: str | None = None
     sign_name: str | None = None
+    pictogram_id: str | None = None
+    message_category: str | None = None
+
+
+def _is_pictogram_full_category(category: str | None) -> bool:
+    if not category:
+        return False
+    return "pictogram full" in category.casefold()
 
 
 def normalize_char(char: str) -> str:
@@ -1056,6 +1079,7 @@ def render_wind_sign_image(
     *,
     lantern_pair: LanternPair = "off",
     show_pictogram: bool = True,
+    pictogram_id: str | None = None,
 ) -> Image.Image:
     """Render the compact WIND VMS face (blank when inactive, pictogram when active)."""
     from PIL import Image, ImageDraw
@@ -1082,13 +1106,22 @@ def render_wind_sign_image(
         fill=_COLOUR_PANEL,
     )
     if show_pictogram:
-        _draw_wind_warning_pictogram(
-            draw,
-            matrix_left=matrix_left,
-            matrix_top=matrix_top,
-            matrix_w=matrix_w,
-            matrix_h=matrix_h,
-        )
+        active_id = normalize_pictogram_id(pictogram_id) or WIND_PICTOGRAM_ID
+        if not paste_pictogram(
+            image,
+            active_id,
+            left=matrix_left,
+            top=matrix_top,
+            width=matrix_w,
+            height=matrix_h,
+        ):
+            _draw_wind_warning_pictogram(
+                draw,
+                matrix_left=matrix_left,
+                matrix_top=matrix_top,
+                matrix_w=matrix_w,
+                matrix_h=matrix_h,
+            )
     _draw_lanterns(
         draw,
         _lantern_corners(
@@ -1125,9 +1158,12 @@ def render_image(
         return render_wind_sign_image(
             lantern_pair=lantern_pair,
             show_pictogram=options.lanterns_on,
+            pictogram_id=options.pictogram_id or WIND_PICTOGRAM_ID,
         )
 
     display_lines = lines[: options.max_lines]
+    pictogram_id = normalize_pictogram_id(options.pictogram_id)
+    pictogram_full = _is_pictogram_full_category(options.message_category)
     grid = render_lines_to_grid(display_lines, max_lines=options.max_lines)
     (
         img_w,
@@ -1150,12 +1186,30 @@ def render_image(
         (panel_left, panel_top, panel_right, panel_bottom),
         fill=_COLOUR_PANEL,
     )
-    _draw_led_matrix(
-        draw,
-        grid,
-        matrix_left=matrix_left,
-        matrix_top=matrix_top,
-    )
+    if pictogram_id and pictogram_full:
+        paste_pictogram(
+            image,
+            pictogram_id,
+            left=matrix_left,
+            top=matrix_top,
+            width=matrix_w,
+            height=matrix_h,
+        )
+    else:
+        _draw_led_matrix(
+            draw,
+            grid,
+            matrix_left=matrix_left,
+            matrix_top=matrix_top,
+        )
+        if pictogram_id:
+            paste_pictogram_led_cells(
+                image,
+                pictogram_id,
+                left=matrix_left,
+                top=matrix_top,
+                cell_px=IMAGE_CELL_PX,
+            )
     _draw_lanterns(
         draw,
         _lantern_corners(
@@ -1182,8 +1236,16 @@ def render_gif_frames(
     if is_wind_vms_sign(options.sign_id):
         if options.lanterns_on:
             return [
-                render_wind_sign_image(lantern_pair="top", show_pictogram=True),
-                render_wind_sign_image(lantern_pair="bottom", show_pictogram=True),
+                render_wind_sign_image(
+                    lantern_pair="top",
+                    show_pictogram=True,
+                    pictogram_id=options.pictogram_id or WIND_PICTOGRAM_ID,
+                ),
+                render_wind_sign_image(
+                    lantern_pair="bottom",
+                    show_pictogram=True,
+                    pictogram_id=options.pictogram_id or WIND_PICTOGRAM_ID,
+                ),
             ]
         return [render_wind_sign_image(lantern_pair="off", show_pictogram=False)]
     return [

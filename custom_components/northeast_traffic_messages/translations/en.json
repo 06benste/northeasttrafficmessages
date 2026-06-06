@@ -6,7 +6,8 @@
         "menu_options": {
           "use_saved": "Use saved credentials ({username})",
           "enter_new": "Enter different credentials",
-          "try_demo": "Try demo sign (no UTMC account needed)"
+          "try_demo": "Try demo sign (no UTMC account needed)",
+          "try_demo_wind": "Try wind warning demo (no UTMC account needed)"
         }
       },
       "enter_new": {
@@ -22,7 +23,7 @@
       },
       "sign": {
         "title": "VMS sign code",
-        "description": "Enter the sign code for the sign you want to monitor (for example VMS_NC_A1058_WB_B1307 or HE_A1_9570B). Enter Demo for a sample sign with flashing lanterns. See the supported signs table in the README ({sign_list_url}) — {sign_count} signs are currently supported.",
+        "description": "Enter the sign code for the sign you want to monitor (for example VMS_NC_A1058_WB_B1307 or HE_A1_9570B). Enter Demo for a sample text sign, or demo-wind for the side-winds pictogram. See the supported signs table in the README ({sign_list_url}) — {sign_count} signs are currently supported.",
         "data": {
           "friendly_sign_id": "Sign code"
         }

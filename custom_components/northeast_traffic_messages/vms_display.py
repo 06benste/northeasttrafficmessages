@@ -819,6 +819,8 @@ _COLOUR_DOT_ON = (255, 153, 0)
 _COLOUR_DOT_GLOW = (255, 120, 0)
 _COLOUR_LANTERN_OFF = (64, 64, 64)
 _COLOUR_LANTERN_ON = (255, 153, 0)
+_COLOUR_WIND_TRIANGLE = (215, 20, 20)
+_COLOUR_WIND_WHITE = (245, 245, 245)
 # TSRGD: amber lamps flash 60–90 times/minute in alternating horizontal pairs.
 _LANTERN_FLASHES_PER_MIN = 75
 _GIF_FRAME_MS = 60000 // (2 * _LANTERN_FLASHES_PER_MIN)  # 400ms → 75 flashes/min
@@ -887,22 +889,22 @@ def _draw_lanterns(
         )
 
 
-def render_image(
-    lines: list[str],
-    *,
-    options: VmsDisplayOptions | None = None,
-    lantern_pair: LanternPair | None = None,
-) -> Image.Image:
-    """Render the VMS sign face (matrix + corner lanterns) as a Pillow image."""
-    from PIL import Image, ImageDraw
+def is_wind_vms_sign(sign_id: str | None) -> bool:
+    """Return True for Durham wind-warning VMS assets (WIND VMS 1, etc.)."""
+    if not sign_id:
+        return False
+    return sign_id.strip().upper().startswith("WIND VMS")
 
-    options = options or VmsDisplayOptions()
-    display_lines = lines[: options.max_lines]
-    grid = render_lines_to_grid(display_lines, max_lines=options.max_lines)
 
-    if lantern_pair is None:
-        lantern_pair = "top" if options.lanterns_on else "off"
+def _blank_ms4_grid() -> list[list[bool]]:
+    """Return an empty MS4 dot grid for layout sizing."""
+    return render_lines_to_grid([""] * MS4_MAX_LINES)
 
+
+def _sign_face_layout(
+    grid: list[list[bool]],
+) -> tuple[int, int, int, int, int, int, int, int, int, int, int]:
+    """Return sign face dimensions shared by text and pictogram renders."""
     cell = IMAGE_CELL_PX
     matrix_cols = len(grid[0]) if grid else 1
     matrix_rows = len(grid) if grid else 1
@@ -920,20 +922,37 @@ def render_image(
     img_w = panel_w + frame_border * 2
     img_h = panel_h + frame_border * 2
 
-    image = Image.new("RGB", (img_w, img_h), _COLOUR_FRAME)
-    draw = ImageDraw.Draw(image)
-
     panel_left = frame_border
     panel_top = frame_border
     panel_right = panel_left + panel_w
     panel_bottom = panel_top + panel_h
-    draw.rectangle(
-        (panel_left, panel_top, panel_right, panel_bottom),
-        fill=_COLOUR_PANEL,
-    )
-
     matrix_left = panel_left + panel_pad_x
     matrix_top = panel_top + panel_pad_y
+
+    return (
+        img_w,
+        img_h,
+        panel_left,
+        panel_top,
+        panel_right,
+        panel_bottom,
+        matrix_left,
+        matrix_top,
+        matrix_w,
+        matrix_h,
+        lantern_inset,
+        lantern_r,
+    )
+
+
+def _draw_led_matrix(
+    draw,
+    grid: list[list[bool]],
+    *,
+    matrix_left: int,
+    matrix_top: int,
+) -> None:
+    cell = IMAGE_CELL_PX
     for row_idx, row in enumerate(grid):
         for col_idx, on in enumerate(row):
             cx = matrix_left + col_idx * cell + cell // 2
@@ -951,6 +970,169 @@ def render_image(
                     fill=_COLOUR_DOT_OFF,
                 )
 
+
+def _draw_wind_warning_pictogram(
+    draw,
+    *,
+    matrix_left: int,
+    matrix_top: int,
+    matrix_w: int,
+    matrix_h: int,
+) -> None:
+    """Draw the UK side-winds triangle and windsock used on WIND VMS signs."""
+    cx = matrix_left + matrix_w // 2
+    cy = matrix_top + matrix_h // 2 + matrix_h // 20
+    tri_size = int(min(matrix_w, matrix_h) * 0.8)
+    half_base = tri_size // 2
+    tri_height = int(tri_size * 0.866)
+
+    apex = (cx, cy - tri_height // 2)
+    base_left = (cx - half_base, cy + tri_height // 2)
+    base_right = (cx + half_base, cy + tri_height // 2)
+
+    border = max(5, tri_size // 16)
+    draw.polygon([apex, base_left, base_right], fill=_COLOUR_WIND_TRIANGLE)
+
+    inset = border * 2
+    inner_half = max(1, half_base - inset)
+    inner_height = max(1, tri_height - inset * 2)
+    inner_apex = (cx, cy - inner_height // 2)
+    inner_left = (cx - inner_half, cy + inner_height // 2)
+    inner_right = (cx + inner_half, cy + inner_height // 2)
+    draw.polygon([inner_apex, inner_left, inner_right], fill=_COLOUR_PANEL)
+
+    pole_x = cx - inner_half // 4
+    pole_top = cy - inner_height // 5
+    pole_bottom = cy + inner_height // 3
+    pole_w = max(3, tri_size // 36)
+    draw.rectangle(
+        (pole_x - pole_w, pole_top, pole_x + pole_w, pole_bottom),
+        fill=_COLOUR_WIND_WHITE,
+    )
+
+    sock_front = pole_x + pole_w + 2
+    sock_back = sock_front + int(inner_half * 0.95)
+    sock_mid_y = (pole_top + pole_bottom) // 2
+    sock_top = pole_top + inner_height // 10
+    sock_bottom = pole_bottom - inner_height // 12
+    draw.polygon(
+        [
+            (sock_front, sock_top),
+            (sock_back, sock_mid_y - inner_height // 10),
+            (sock_back, sock_mid_y + inner_height // 10),
+            (sock_front, sock_bottom),
+        ],
+        fill=_COLOUR_WIND_WHITE,
+    )
+    stripe_w = max(2, tri_size // 45)
+    for offset in (0.28, 0.52, 0.76):
+        stripe_x = sock_front + int((sock_back - sock_front) * offset)
+        draw.rectangle(
+            (
+                stripe_x,
+                sock_top + inner_height // 14,
+                stripe_x + stripe_w,
+                sock_bottom - inner_height // 14,
+            ),
+            fill=_COLOUR_WIND_TRIANGLE,
+        )
+
+
+def render_wind_warning_image(*, lantern_pair: LanternPair = "off") -> Image.Image:
+    """Render the side-winds pictogram face used when WIND VMS lanterns flash."""
+    from PIL import Image, ImageDraw
+
+    (
+        img_w,
+        img_h,
+        panel_left,
+        panel_top,
+        panel_right,
+        panel_bottom,
+        matrix_left,
+        matrix_top,
+        matrix_w,
+        matrix_h,
+        lantern_inset,
+        lantern_r,
+    ) = _sign_face_layout(_blank_ms4_grid())
+
+    image = Image.new("RGB", (img_w, img_h), _COLOUR_FRAME)
+    draw = ImageDraw.Draw(image)
+    draw.rectangle(
+        (panel_left, panel_top, panel_right, panel_bottom),
+        fill=_COLOUR_PANEL,
+    )
+    _draw_wind_warning_pictogram(
+        draw,
+        matrix_left=matrix_left,
+        matrix_top=matrix_top,
+        matrix_w=matrix_w,
+        matrix_h=matrix_h,
+    )
+    _draw_lanterns(
+        draw,
+        _lantern_corners(
+            panel_left,
+            panel_top,
+            panel_right,
+            panel_bottom,
+            lantern_inset,
+        ),
+        pair=lantern_pair,
+        radius=lantern_r,
+    )
+    return image
+
+
+def _should_render_wind_warning(options: VmsDisplayOptions) -> bool:
+    return is_wind_vms_sign(options.sign_id) and options.lanterns_on
+
+
+def render_image(
+    lines: list[str],
+    *,
+    options: VmsDisplayOptions | None = None,
+    lantern_pair: LanternPair | None = None,
+) -> Image.Image:
+    """Render the VMS sign face (matrix + corner lanterns) as a Pillow image."""
+    from PIL import Image, ImageDraw
+
+    options = options or VmsDisplayOptions()
+    if lantern_pair is None:
+        lantern_pair = "top" if options.lanterns_on else "off"
+    if _should_render_wind_warning(options):
+        return render_wind_warning_image(lantern_pair=lantern_pair)
+
+    display_lines = lines[: options.max_lines]
+    grid = render_lines_to_grid(display_lines, max_lines=options.max_lines)
+    (
+        img_w,
+        img_h,
+        panel_left,
+        panel_top,
+        panel_right,
+        panel_bottom,
+        matrix_left,
+        matrix_top,
+        matrix_w,
+        matrix_h,
+        lantern_inset,
+        lantern_r,
+    ) = _sign_face_layout(grid)
+
+    image = Image.new("RGB", (img_w, img_h), _COLOUR_FRAME)
+    draw = ImageDraw.Draw(image)
+    draw.rectangle(
+        (panel_left, panel_top, panel_right, panel_bottom),
+        fill=_COLOUR_PANEL,
+    )
+    _draw_led_matrix(
+        draw,
+        grid,
+        matrix_left=matrix_left,
+        matrix_top=matrix_top,
+    )
     _draw_lanterns(
         draw,
         _lantern_corners(
@@ -974,6 +1156,11 @@ def render_gif_frames(
 ) -> list[Image.Image]:
     """Build top/bottom lantern pair frames for a flashing VMS GIF."""
     options = options or VmsDisplayOptions()
+    if _should_render_wind_warning(options):
+        return [
+            render_wind_warning_image(lantern_pair="top"),
+            render_wind_warning_image(lantern_pair="bottom"),
+        ]
     return [
         render_image(lines, options=options, lantern_pair="top"),
         render_image(lines, options=options, lantern_pair="bottom"),

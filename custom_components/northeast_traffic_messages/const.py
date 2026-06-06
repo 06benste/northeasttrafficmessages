@@ -9,6 +9,9 @@ CONF_FRIENDLY_SIGN_ID = "friendly_sign_id"
 
 DEMO_SIGN_ID = "__demo__"
 DEMO_FRIENDLY_ID = "Demo"
+DEMO_WIND_SIGN_ID = "__demo_wind__"
+DEMO_WIND_FRIENDLY_ID = "demo-wind"
+DEMO_WIND_RENDER_SIGN_ID = "WIND VMS 1"
 
 API_STATIC_URL = "https://www.netraveldata.co.uk/api/v2/vms/static"
 API_DYNAMIC_URL = "https://www.netraveldata.co.uk/api/v2/vms/dynamic"

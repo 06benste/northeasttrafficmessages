@@ -9,7 +9,7 @@ Data is sourced from [netraveldata.co.uk](https://www.netraveldata.co.uk/?page_i
 ## Requirements
 
 - Home Assistant **2024.1** or newer
-- A free **netraveldata.co.uk** account (not needed for the `Demo` sign)
+- A free **netraveldata.co.uk** account (not needed for the `Demo` or `demo-wind` signs)
 - Internet access to `www.netraveldata.co.uk`
 
 ## Installation
@@ -29,19 +29,20 @@ Data is sourced from [netraveldata.co.uk](https://www.netraveldata.co.uk/?page_i
 
 ## Setup
 
-1. Enter your UTMC username and password (or choose **Try demo sign** to skip this).
+1. Enter your UTMC username and password (or choose **Try demo sign** or **Try wind warning demo** to skip this).
 2. Enter the **sign code** from the [supported signs](#supported-signs) table below, for example `VMS_NC_A1058_WB_B1307` or `HE_A1_9570B`.
 
 Lookup is case-insensitive (`vms_nc_a1058_wb_b1307` works the same as `VMS_NC_A1058_WB_B1307`).
 
 ## Supported signs
 
-During setup, enter the **Sign code** exactly as shown below. Codes are not case-sensitive. Use `Demo` to preview the integration without a real sign.
+During setup, enter the **Sign code** exactly as shown below. Codes are not case-sensitive. Use `Demo` or `demo-wind` to preview the integration without a real sign.
 
 <!-- SIGN_TABLE_START -->
 | Sign code | Location |
 | --- | --- |
 | `Demo` | Sample sign with flashing lanterns (no UTMC connection) |
+| `demo-wind` | Side-winds warning pictogram with flashing lanterns (no UTMC connection) |
 | `VMS_ST_A1018_SB_A1300` | A1018 (SB) / A1300 John Reid Rd |
 | `VMS_SL_A1018_SB_B1291` | A1018 (SB) / B1291 Charlton Rd |
 | `VMS_NT_A1056_WB_B1318` | A1056 (WB) / B1318 Grt North Rd |
@@ -157,7 +158,7 @@ During setup, enter the **Sign code** exactly as shown below. Codes are not case
 | `HE_A67_0002B` | Highways England - A67/0002B |
 | `VMS_MC_SMW_EB_RED2` | Metrocentre / Red CP Entry |
 
-115 signs are supported (including Demo).
+116 signs are supported (including Demo and demo-wind).
 <!-- SIGN_TABLE_END -->
 ## Entities per sign
 
@@ -177,13 +178,3 @@ Device name and map coordinates (when provided by UTMC) are refreshed from the s
 ## Adding more signs
 
 Run the config flow again for each additional sign. Credentials are shared across all entries.
-
-## Maintaining the sign list
-
-When UTMC adds or renames signs, regenerate `supported_signs.json` from the development tooling, then run:
-
-```powershell
-python build_sign_table.py
-```
-
-That refreshes the table in this README. Bump `version` in `manifest.json` and publish a GitHub release for HACS updates.

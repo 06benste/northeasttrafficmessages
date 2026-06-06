@@ -27,13 +27,20 @@ from .const import (
     CONF_PASSWORD,
     CONF_SIGN_ID,
     CONF_USERNAME,
-    DEMO_FRIENDLY_ID,
     DEMO_SIGN_ID,
+    DEMO_WIND_SIGN_ID,
     DOMAIN,
     MANUFACTURER,
     SCAN_INTERVAL_SECONDS,
 )
-from .demo import build_demo_vms, is_demo_sign_id
+from .demo import (
+    build_demo_vms,
+    build_demo_wind_vms,
+    is_demo_sign_id,
+    is_demo_wind_sign_id,
+    is_offline_demo_sign_id,
+    render_sign_id_for_config,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -66,8 +73,21 @@ class NortheastTrafficMessagesCoordinator(DataUpdateCoordinator[VmsCoordinatorDa
         self.client = client
         self.sign_id = entry.data[CONF_SIGN_ID]
 
+    @property
+    def render_sign_id(self) -> str:
+        """Return the sign ID used when rendering the VMS display."""
+        return render_sign_id_for_config(self.sign_id)
+
     async def _async_update_data(self) -> VmsCoordinatorData:
         """Refresh dynamic data every poll; static metadata uses a shared 24-hour cache."""
+        if is_demo_wind_sign_id(self.sign_id):
+            vms, lines, text = build_demo_wind_vms()
+            await self._async_update_device(vms.static)
+            return VmsCoordinatorData(
+                vms=vms,
+                display_lines=lines,
+                display_text=text,
+            )
         if is_demo_sign_id(self.sign_id):
             vms, lines, text = build_demo_vms()
             await self._async_update_device(vms.static)
@@ -114,7 +134,7 @@ async def async_create_coordinator(
     hass: HomeAssistant, entry: ConfigEntry
 ) -> NortheastTrafficMessagesCoordinator:
     """Create coordinator and perform initial refresh."""
-    if is_demo_sign_id(entry.data[CONF_SIGN_ID]):
+    if is_offline_demo_sign_id(entry.data[CONF_SIGN_ID]):
         client = create_client(hass, "", "")
     else:
         client = create_client(

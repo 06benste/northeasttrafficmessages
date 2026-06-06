@@ -77,7 +77,7 @@ class VmsDisplayImage(NortheastTrafficMessagesEntity, ImageEntity):
             dynamic = data.vms.dynamic
             options = VmsDisplayOptions(
                 lanterns_on=dynamic is not None and dynamic.lantern_state == 1,
-                sign_id=self.coordinator.sign_id,
+                sign_id=self.coordinator.render_sign_id,
                 sign_name=data.vms.static.short_description,
             )
             try:

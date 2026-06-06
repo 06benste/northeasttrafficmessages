@@ -21,9 +21,12 @@ from .const import (
     CONF_PASSWORD,
     CONF_SIGN_ID,
     CONF_USERNAME,
+    DEMO_FRIENDLY_ID,
+    DEMO_SIGN_ID,
     DOMAIN,
     SIGN_LIST_URL,
 )
+from .demo import is_demo_sign_code
 from .signs import load_supported_signs, resolve_friendly_sign_id
 
 _LOGGER = logging.getLogger(__name__)
@@ -115,6 +118,31 @@ class NortheastTrafficMessagesConfigFlow(config_entries.ConfigFlow, domain=DOMAI
         """Prompt for new UTMC credentials."""
         return await self.async_step_credentials(user_input)
 
+    async def async_step_try_demo(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Add the built-in demo sign without UTMC credentials."""
+        self._credentials = {}
+        return await self._async_create_demo_entry()
+
+    async def _async_create_demo_entry(self) -> ConfigFlowResult:
+        """Create the demo config entry if it is not already configured."""
+        if DEMO_SIGN_ID in _get_configured_utmc_ids(self.hass):
+            return self.async_abort(reason="already_configured")
+
+        await self.async_set_unique_id(DEMO_SIGN_ID)
+        self._abort_if_unique_id_configured()
+        credentials = self._credentials or {}
+        return self.async_create_entry(
+            title="VMS Demo",
+            data={
+                CONF_USERNAME: credentials.get(CONF_USERNAME, ""),
+                CONF_PASSWORD: credentials.get(CONF_PASSWORD, ""),
+                CONF_SIGN_ID: DEMO_SIGN_ID,
+                CONF_FRIENDLY_SIGN_ID: DEMO_FRIENDLY_ID,
+            },
+        )
+
     async def async_step_credentials(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
@@ -163,6 +191,12 @@ class NortheastTrafficMessagesConfigFlow(config_entries.ConfigFlow, domain=DOMAI
 
         if user_input is not None:
             friendly_input = user_input[CONF_FRIENDLY_SIGN_ID].strip()
+            if is_demo_sign_code(friendly_input):
+                if DEMO_SIGN_ID in configured_utmc_ids:
+                    errors["base"] = "already_configured"
+                else:
+                    return await self._async_create_demo_entry()
+
             supported = resolve_friendly_sign_id(friendly_input)
             if supported is None:
                 errors["base"] = "unsupported_sign"

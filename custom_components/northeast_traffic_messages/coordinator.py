@@ -27,10 +27,13 @@ from .const import (
     CONF_PASSWORD,
     CONF_SIGN_ID,
     CONF_USERNAME,
+    DEMO_FRIENDLY_ID,
+    DEMO_SIGN_ID,
     DOMAIN,
     MANUFACTURER,
     SCAN_INTERVAL_SECONDS,
 )
+from .demo import build_demo_vms, is_demo_sign_id
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -65,6 +68,14 @@ class NortheastTrafficMessagesCoordinator(DataUpdateCoordinator[VmsCoordinatorDa
 
     async def _async_update_data(self) -> VmsCoordinatorData:
         """Refresh dynamic data every poll; static metadata uses a shared 24-hour cache."""
+        if is_demo_sign_id(self.sign_id):
+            vms, lines, text = build_demo_vms()
+            await self._async_update_device(vms.static)
+            return VmsCoordinatorData(
+                vms=vms,
+                display_lines=lines,
+                display_text=text,
+            )
         try:
             vms = await self.client.async_get_sign_data(self.sign_id)
             await self._async_update_device(vms.static)
@@ -103,11 +114,14 @@ async def async_create_coordinator(
     hass: HomeAssistant, entry: ConfigEntry
 ) -> NortheastTrafficMessagesCoordinator:
     """Create coordinator and perform initial refresh."""
-    client = create_client(
-        hass,
-        entry.data[CONF_USERNAME],
-        entry.data[CONF_PASSWORD],
-    )
+    if is_demo_sign_id(entry.data[CONF_SIGN_ID]):
+        client = create_client(hass, "", "")
+    else:
+        client = create_client(
+            hass,
+            entry.data[CONF_USERNAME],
+            entry.data[CONF_PASSWORD],
+        )
     coordinator = NortheastTrafficMessagesCoordinator(hass, entry, client)
     await coordinator.async_config_entry_first_refresh()
     return coordinator

@@ -7,6 +7,9 @@ CONF_PASSWORD = "password"
 CONF_SIGN_ID = "sign_id"
 CONF_FRIENDLY_SIGN_ID = "friendly_sign_id"
 
+DEMO_SIGN_ID = "__demo__"
+DEMO_FRIENDLY_ID = "Demo"
+
 API_STATIC_URL = "https://www.netraveldata.co.uk/api/v2/vms/static"
 API_DYNAMIC_URL = "https://www.netraveldata.co.uk/api/v2/vms/dynamic"
 
@@ -22,7 +25,7 @@ USER_AGENT = "HomeAssistant/NortheastTrafficMessages/1.0.0"
 
 REPO_URL = "https://github.com/06benste/northeasttrafficmessages/"
 DOCUMENTATION_URL = REPO_URL
-SIGN_LIST_URL = f"{REPO_URL}blob/main/supported_signs.json"
+SIGN_LIST_URL = f"{REPO_URL}#supported-signs"
 
 SIGN_SETTING_REASONS = (
     "No Override",
